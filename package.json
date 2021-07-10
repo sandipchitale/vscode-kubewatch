@@ -1,0 +1,219 @@
+{
+  "name": "vscode-kubewatch",
+  "displayName": "Kubernetes Watcher",
+  "icon": "images/icon.png",
+  "description": "Kubernetes Watcher for VSCode",
+  "version": "1.0.9",
+  "publisher": "sandipchitale",
+  "engines": {
+    "vscode": "^1.57.0"
+  },
+  "preview": true,
+  "extensionDependencies": [
+    "ms-kubernetes-tools.vscode-kubernetes-tools"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "repository": {
+    "url": "https://github.com/sandipchitale/vscode-kubewatch"
+  },
+  "activationEvents": [
+    "onCommand:vscode-kubewatch.show"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "properties": {
+        "vscode-kubewatch.resourceTypes": {
+          "title": "Resource Type",
+          "type": "array",
+          "default": [
+            "ingresses",
+            "services",
+            "pods"
+          ],
+          "items": {
+            "type": "string",
+            "enum": [
+              "bindings",
+              "componentstatuses",
+              "configmaps",
+              "endpoints",
+              "events",
+              "limitranges",
+              "namespaces",
+              "nodes",
+              "persistentvolumeclaims",
+              "persistentvolumes",
+              "pods",
+              "podtemplates",
+              "replicationcontrollers",
+              "resourcequotas",
+              "secrets",
+              "serviceaccounts",
+              "services",
+              "mutatingwebhookconfigurations",
+              "validatingwebhookconfigurations",
+              "customresourcedefinitions",
+              "apiservices",
+              "controllerrevisions",
+              "daemonsets",
+              "deployments",
+              "replicasets",
+              "statefulsets",
+              "tokenreviews",
+              "localsubjectaccessreviews",
+              "selfsubjectaccessreviews",
+              "selfsubjectrulesreviews",
+              "subjectaccessreviews",
+              "horizontalpodautoscalers",
+              "cronjobs",
+              "jobs",
+              "certificatesigningrequests",
+              "leases",
+              "endpointslices",
+              "events",
+              "ingresses",
+              "flowschemas",
+              "prioritylevelconfigurations",
+              "ingressclasses",
+              "ingresses",
+              "networkpolicies",
+              "runtimeclasses",
+              "poddisruptionbudgets",
+              "podsecuritypolicies",
+              "clusterrolebindings",
+              "clusterroles",
+              "rolebindings",
+              "roles",
+              "priorityclasses",
+              "csidrivers",
+              "csinodes",
+              "storageclasses",
+              "volumeattachments"
+            ]
+          },
+          "description": "Resource Types to show in order"
+        },
+        "vscode-kubewatch.refreshIntervalInSeconds": {
+          "title": "Refresh interval in seconds",
+          "type": "number",
+          "default": 10,
+          "description": "Refresh interval in seconds. Set to 0 if you do not want to auto refresh. Use F5 key instead to refresh."
+        },
+        "vscode-kubewatch.namespace": {
+          "title": "Show Resources from namespace",
+          "type": "string",
+          "default": "-A",
+          "description": "Show Resources from namesapce"
+        },
+        "vscode-kubewatch.get-options": {
+          "title": "Additonal options for get",
+          "type": "string",
+          "default": "",
+          "description": "Additional options for get command.\nSome examples:\n\n-o wide\n-o custom-columns=\":kind,:metadata.namespace,:metadata.name\""
+        }
+      }
+    },
+    "languages": [
+      {
+        "id": "kube-watch"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "kube-watch",
+        "scopeName": "source.kube-watch",
+        "path": "./syntaxes/kube-watch.tmGrammar.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "vscode-kubewatch.show",
+        "title": "Kubernetes Watch: Show"
+      },
+      {
+        "command": "vscode-kubewatch.settings",
+        "title": "Kubernetes Watch: Settings",
+        "enablement": "editorReadonly && vscode-kubewatch"
+      },
+      {
+        "command": "vscode-kubewatch.copy-name",
+        "title": "Kubernetes Watch: Copy name",
+        "enablement": "editorReadonly && vscode-kubewatch"
+      },
+      {
+        "command": "vscode-kubewatch.edit-kubeconfig",
+        "title": "Kubernetes Watch: Edit Kube Config",
+        "enablement": "editorReadonly && vscode-kubewatch"
+      },
+      {
+        "command": "vscode-kubewatch.reload",
+        "title": "Kubernetes Watch: Reload",
+        "enablement": "editorReadonly && vscode-kubewatch"
+      },
+      {
+        "command": "vscode-kubewatch.quit",
+        "title": "Kubernetes Watch: Quit Watch",
+        "enablement": "editorReadonly && vscode-kubewatch"
+      },
+      {
+        "command": "vscode-kubewatch.switch-namespace",
+        "title": "Kubernetes Commander: Switch namespace",
+        "enablement": "editorReadonly && vscode-kubewatch"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "vscode-kubewatch.quit",
+        "key": "q"
+      },
+      {
+        "command": "vscode-kubewatch.edit-kubeconfig",
+        "key": "c"
+      },
+      {
+        "command": "vscode-kubewatch.copy-name",
+        "key": "n"
+      },
+      {
+        "command": "vscode-kubewatch.settings",
+        "key": "ctrl+,",
+        "when": "editorReadonly && vscode-kubewatch"
+      },
+      {
+        "command": "vscode-kubewatch.reload",
+        "key": "F5"
+      },
+      {
+        "command": "vscode-kubewatch.switch-namespace",
+        "key": "w"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.57.0",
+    "@typescript-eslint/eslint-plugin": "^4.26.0",
+    "@typescript-eslint/parser": "^4.26.0",
+    "eslint": "^7.27.0",
+    "glob": "^7.1.7",
+    "mocha": "^8.4.0",
+    "typescript": "^4.3.2",
+    "vscode-test": "^1.5.2"
+  },
+  "dependencies": {
+    "vscode-kubernetes-tools-api": "^1.0.0"
+  }
+}

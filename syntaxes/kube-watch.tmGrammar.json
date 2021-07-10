@@ -1,0 +1,55 @@
+{
+  "scopeName": "source.kube-watch",
+  "patterns": [
+    {
+      "match": "^(Kubeconfig: (\\S+))$",
+      "captures": {
+        "1": {
+          "name": "string"
+        },
+        "2": {
+          "name": "storage.modifier"
+        }
+      }
+    },
+    {
+      "match": "^(Context: (\\S+) Namespace: (\\S+|) Client Version: (\\S+) Server Version: (\\S+) (\\( Hover for help \\)))$",
+      "captures": {
+        "1": {
+          "name": "string"
+        },
+        "2": {
+          "name": "storage.modifier"
+        },
+        "3": {
+          "name": "storage.modifier"
+        },
+        "4": {
+          "name": "storage.modifier"
+        },
+        "5": {
+          "name": "storage.modifier"
+        }
+      }
+    },
+    {
+      "match": "^([^a-z]+)$",
+      "captures": {
+        "1": {
+          "name": "string"
+        }
+      }
+    },
+    {
+      "match": "^(get (.+))$",
+      "captures": {
+        "1": {
+          "name": "string"
+        },
+        "2": {
+          "name": "storage.modifier"
+        }
+      }
+    }
+  ]
+}
